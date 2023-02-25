@@ -15,6 +15,8 @@ void ArraySortShacker(int array[], int size);
 
 void ArraySortQuick(int array[], int size);
 
+void ArraySortHeap(int array[], int size);
+
 int main()
 {
     srand(time(nullptr));
@@ -188,4 +190,33 @@ void SortQuickReq(int array[], int begin, int end)
 void ArraySortQuick(int array[], int size)
 {
     SortQuickReq(array, 0, size - 1);
+}
+
+
+void Heapify(int array[], int size, int indexParent)
+{
+    int indexLeft = 2 * indexParent + 1;
+    int indexRight = 2 * indexParent + 2;
+
+    int indexLagest = indexLeft;
+    if (indexRight < size && array[indexLagest] < array[indexRight])
+        indexLagest = indexRight;
+
+    if (indexLagest < size && array[indexLagest] > array[indexParent])
+    {
+        swap(array[indexLagest], array[indexParent]);
+        Heapify(array, size, indexLagest);
+    }
+}
+
+void ArraySortHeap(int array[], int size)
+{
+    for (int i = size / 2 - 1; i >= 0; i--)
+        Heapify(array, size, i);
+
+    for (int isize = size - 1; isize >= 0; isize--)
+    {
+        swap(array[0], array[isize]);
+        Heapify(array, isize, 0);
+    }
 }
