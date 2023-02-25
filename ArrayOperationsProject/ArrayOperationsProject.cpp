@@ -13,11 +13,13 @@ void ArraySortSelect(int array[], int size);
 void ArraySortBubble(int array[], int size);
 void ArraySortShacker(int array[], int size);
 
+void ArraySortQuick(int array[], int size);
+
 int main()
 {
     srand(time(nullptr));
     
-    const int size{ 10 };
+    const int size{ 20 };
 
     int array[size]{};
 
@@ -29,7 +31,7 @@ int main()
     //ArrayRotateToLeft(array, size, 124);
     //ArrayRotateToRight(array, size, 56);
 
-    for (int i = 1; i < size; i++)
+    /*for (int i = 1; i < size; i++)
     {
         int temp = array[i];
         int j = i - 1;
@@ -39,8 +41,10 @@ int main()
             j--;
         }
         array[j + 1] = temp;
-    }
+    }*/
     
+    ArraySortQuick(array, size);
+
     
     ArrayPrint(array, size);
 
@@ -155,4 +159,33 @@ void ArrayReverse(int array[], int size)
         array[i] = array[size - 1 - i];
         array[size - 1 - i] = temp;
     }
+}
+
+
+void SortQuickReq(int array[], int begin, int end)
+{
+    int pivot = array[(begin + end) / 2];
+    int left{ begin };
+    int right{ end };
+
+    do
+    {
+        while (array[left] < pivot) left++;
+        while (array[right] > pivot) right--;
+        if (left <= right)
+        {
+            swap(array[left], array[right]);
+            left++;
+            right--;
+        }
+    } while (left <= right);
+
+    if (begin < right) SortQuickReq(array, begin, right);
+    if (left < end) SortQuickReq(array, left, end);
+}
+
+
+void ArraySortQuick(int array[], int size)
+{
+    SortQuickReq(array, 0, size - 1);
 }
