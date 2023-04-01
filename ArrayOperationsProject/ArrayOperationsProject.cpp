@@ -17,6 +17,13 @@ void ArraySortQuick(int array[], int size);
 
 void ArraySortHeap(int array[], int size);
 
+void ArraySort(int array[], 
+               int size, 
+               void(*Sort)(int array[], int size))
+{
+    Sort(array, size);
+}
+
 int main()
 {
     srand(time(nullptr));
